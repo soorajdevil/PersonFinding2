@@ -1,0 +1,53 @@
+{% extends 'header.html'%}
+{% block content %}  
+
+{%load static %}
+
+<body>
+    <div class="container table-container">
+        <h1 class="text-center">Public Replies Data View</h1>
+        <table id="enquiriesTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Serial Number</th>
+                    <th>Enquiry id</th>
+                    <th>Hospital id</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Enquiries Details</th>
+                    <th>Reply Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for inquiry in inquiries_with_replies %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ inquiry.enquiry_id}}</td>
+                    <td>{{ inquiry.hospital.Hospital_Name  }}</td>
+                    <td>{{ inquiry.Name }}</td>
+                    <td>{{ inquiry.Phone }}</td>
+                    {% comment %} <td>{{ inquiry.hospital.Hospital_Name }}</td> {% endcomment %}
+                    <td>{{ inquiry.Enquiry}}</td>
+                    <td>{{ inquiry.Reply }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Include Bootstrap JS (optional, only if you need Bootstrap JavaScript functionality) -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Initialize DataTables with search bar and pagination -->
+    {% comment %} <script>
+        $(document).ready(function() {
+            $('#enquiriesTable').DataTable({
+                "paging": true,
+                "searching": true
+            });
+        });
+    </script> {% endcomment %}
+</body>
+ {% endblock %}
+{% comment %} </html> {% endcomment %}
+

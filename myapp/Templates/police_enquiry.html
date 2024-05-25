@@ -1,0 +1,69 @@
+{% extends 'police_header.html' %}
+{% block content %}
+
+{% load static %}
+<head>
+    <title>Enquiries Data View Police</title>
+    <!-- Include Bootstrap CSS (adjust the URL to the Bootstrap version you are using) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Include DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Include DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+
+    <!-- Your existing style and script -->
+    <!-- ... -->
+</head>
+<body>
+    <div class="container table-container">
+        <h1 class="text-center">Enquiries Data </h1>
+        <table id="enquiriesTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Hospital ID</th>
+                    <th>Hospital Name</th>
+                    <th>Address</th>
+                    <th>District</th>
+                    <th>City</th>
+                    <th>Contact number</th>
+                    <th>Email</th>
+                    <th>Enquiry</th>
+                    
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for view in view %}
+                <tr>
+                    <td>{{view.hospital_id}}
+                    <td>{{ view.Hospital_Name }}</td>
+                    <td>{{ view.Address }}</td>
+                    <td>{{ view.District }}</td>
+                    <td>{{ view.City }}</td>
+                    <td>{{ view.Contact_number }}</td>
+                    <td>{{ view.Email }}</td>
+                    <td><a href="../police_enquirypage/{{ view.hospital_id }}" class="btn btn-success">Enquiry</a></td>
+                    
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Include Bootstrap JS (optional, only if you need Bootstrap JavaScript functionality) -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Initialize DataTables -->
+    <script>
+        $(document).ready(function() {
+            $('#enquiriesTable').DataTable();
+        });
+    </script>
+</body>
+{%endblock%}

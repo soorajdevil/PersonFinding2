@@ -1,0 +1,74 @@
+{% extends 'police_header.html' %}
+{% block content %}
+
+{% load static %}
+<head>
+    <title>Found Data View</title>
+    <!-- Include Bootstrap CSS (adjust the URL to the Bootstrap version you are using) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Include DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Include DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+
+    <!-- Your existing style and script -->
+    <!-- ... -->
+</head>
+<body>
+    <div class="container table-container">
+        <h1 class="text-center">Found Data View</h1>
+        <table id="enquiriesTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Serial Number</th>
+                    <th>Missing id</th>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>District</th>
+                    <th>City</th>
+                    <th>Street</th>
+                    <th>Other details</th>
+                    <th>Photo</th>
+                    <th>Found date</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for view in view %}
+                 {% comment %} {% if view.user_id_id is not None %} {% endcomment %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ view.missing_id}}</td>
+                    <td>{{ view.Name }}</td>
+                    <td>{{ view.Phone }}</td>
+                    <td>{{ view.District }}</td>
+                    <td>{{ view.City}}</td>
+                    <td>{{ view.Street}}</td>
+                    <td>{{ view.Other_details}}</td>
+                    <td><img src ="/media/{{ view.Photo }}"width=50px height=50px></td>
+                    <td>{{view.Found_date}}</td>
+
+                    {% comment %} <td><a href="../user_replyadd/{{ view.enquiry_id }}" class="btn btn-success">Reply</a></td> {% endcomment %}
+                </tr>
+                {% comment %} {%endif%} {% endcomment %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Include Bootstrap JS (optional, only if you need Bootstrap JavaScript functionality) -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Initialize DataTables -->
+    <script>
+        $(document).ready(function() {
+            $('#enquiriesTable').DataTable();
+        });
+    </script>
+</body>
+{%endblock%}

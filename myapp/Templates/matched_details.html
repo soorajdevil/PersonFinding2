@@ -1,0 +1,61 @@
+{% extends 'police_header.html' %}
+{% block content %}
+    <div class="container">
+        <h2 class="text-center">Matching Cases for {{ missing_person.fullname }}</h2>
+        
+        {% if photo_matched == 'No matching details' %}
+        <!-- Display a "photo matched" alert if photo_matched is True -->
+        <div class="alert alert-danger" role="alert">
+            Photo Not Matched!
+        </div>
+        {% else %}
+        <div class="alert alert-success" role="alert">
+            Photo Matched!
+        </div>
+        {% endif %}
+        
+        <!-- Display other details of the missing person -->
+        <!-- ... (your existing code) ... -->
+        
+        <h3>Matching Cases:</h3>
+        {% if matching_cases.empty %}
+            <p>No matching details</p> <!-- Display "No matching details" in a paragraph -->
+        {% else %}
+            <ul>
+                {% for case in matching_cases %}
+                    <li>{{ case.Patient_Name }} - {{ case.Description }}</li>
+                    <!-- Display other details of the matching case -->
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <h3>Apriori Results:</h3>
+        <!-- Display the frequent itemsets and association rules here -->
+        <!-- You can customize the display as needed -->
+
+        <!-- Example: Display frequent itemsets -->
+        <h4>Frequent Itemsets:</h4>
+        {% if frequent_itemsets.empty %}
+            <p>No matching details</p> <!-- Display "No matching details" in a paragraph -->
+        {% else %}
+            <ul>
+                {% for itemset in frequent_itemsets %}
+                    <li>{{ itemset }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <!-- Example: Display association rules -->
+        <h4>Association Rules:</h4>
+        {% if rules.empty %}
+            <p>No matching details</p> <!-- Display "No matching details" in a paragraph -->
+        {% else %}
+            <ul>
+                {% for rule in rules %}
+                    <li>{{ rule }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock content %}
+

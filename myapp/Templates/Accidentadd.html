@@ -1,0 +1,74 @@
+{% extends 'user_header.html' %}
+{% block content %}
+
+{% load static %}
+
+<head>
+    <title>Accident</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add custom styles for the background image */
+        body {
+            background-image: url('pics/Userview.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <!-- Add a card for the form with Bootstrap styling -->
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="text-center">Accident Credentials</h1>
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th><label for="id_Name">Name</label></th>
+                                        <td>{{ form1.Name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><label for="id_Contact_Number">Contact Number</label></th>
+                                        <td>{{ form1.Contact_Number }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><label for="id_Accident_Details">Accident Details</label></th>
+                                        <td>{{ form1.Accident_Details }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><label for="id_Location">Location</label></th>
+                                        <td>{{ form1.Location }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><label for="id_Image">Image</label></th>
+                                        <td>{{ form1.Image }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><label for="id_Video">Video</label></th>
+                                        <td>{{ form1.Video }}</td>
+                                    </tr>
+                                    <!-- Add more fields here following the same structure -->
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and jQuery (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+{%endblock%}

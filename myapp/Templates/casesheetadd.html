@@ -1,0 +1,91 @@
+{% extends 'hospital_header.html' %}
+{% block content %}
+
+{% load static %}
+
+<head>
+    <title>Register</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="text-center">Casesheet</h1>
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <table class="table">
+                                    <tr>
+                                        <th>Patient Name:</th>
+                                        <td>{{ form1.Patient_Name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Blood Group:</th>
+                                        <td>{{ form1.Blood_Group }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Address:</th>
+                                        <td>{{ form1.Address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>District:</th>
+                                        <td>{{ form1.District }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>City:</th>
+                                        <td>{{ form1.City }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Contact Number:</th>
+                                        <td>{{ form1.Contact_Number }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Age:</th>
+                                        <td>{{ form1.Age }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Gender:</th>
+                                        <td>{{ form1.Gender }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Description:</th>
+                                        <td>{{ form1.Description }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Date:</th>
+                                        <td>{{ form1.Date }}</td>
+                                    </tr>
+                                   <tr>
+                                        <th>Photo:</th>
+                                        <td>
+                                            {{ form1.Photo }}
+                                            {% if not form1.Photo.value %}
+                                                <span class="text-muted">(Optional)</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                        <th>Patient ID:</th>
+                                        <td>{{ form1.Patient_id }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <input type="submit" class="btn btn-primary btn-block" value="UPLOAD">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and jQuery (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+{%endblock%}

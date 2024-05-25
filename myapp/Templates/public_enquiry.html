@@ -1,0 +1,115 @@
+{% extends 'header.html'%}
+{% block content %}
+
+{%load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Public Enquiry Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center">Public Enquiry Form</h2>
+
+            <form method="post" action="{% url 'public_enquiry' %}">
+                {% csrf_token %}
+                <table class="table">
+                    <tr>
+                        <td><label for="name">Name:</label></td>
+                        <td><input type="text" class="form-control" name="name" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="phone">Phone:</label></td>
+                        <td><input type="tel" class="form-control" name="phone" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="district">Select District:</label></td>
+                        <td>
+                            <select class="form-control" name="district" id="district">
+                                <option value="" selected disabled>Select a district</option>
+                                {% for district in kerala_districts %}
+                                    <option value="{{ district }}">{{ district }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="hospital">Select Hospital:</label></td>
+                        <td>
+                            <select class="form-control" name="hospital" id="hospital" disabled>
+                                <option value="" selected disabled>Select a hospital</option>
+                                {% for hospital in hospitals %}
+                                    <option value="{{ hospital.id }}" data-district="{{ hospital.District }}">{{ hospital.Hospital_Name }} - {{ hospital.City }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="enquiry">Enquiry:</label></td>
+                        <td><textarea class="form-control" name="enquiry" rows="4" required></textarea></td>
+                    </tr>
+                </table>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Submit Enquiry</button>
+                </div>
+            </form>
+
+            <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            {% comment %} <script>
+                document.getElementById('district').addEventListener('change', function () {
+                    var selectedDistrict = this.value;
+                    var hospitalsDropdown = document.getElementById('hospital');
+
+                    // Enable the hospital dropdown
+                    hospitalsDropdown.disabled = false;
+
+                    // Show only hospitals from the selected district
+                    Array.from(hospitalsDropdown.options).forEach(function (option) {
+                        option.disabled = (option.getAttribute('data-district') !== selectedDistrict && option.value !== '');
+                    });
+                });
+            </script> {% endcomment %}
+            <script>
+                document.getElementById('district').addEventListener('change', function() {
+                    var selectedDistrict = this.value;
+                    var hospitalsDropdown = document.getElementById('hospital');
+            
+                    // Clear existing options
+                    hospitalsDropdown.innerHTML = '';
+            
+                    // Add default option
+                    var defaultOption = document.createElement('option');
+                    defaultOption.value = '';
+                    defaultOption.text = 'Select a hospital';
+                    defaultOption.disabled = true;
+                    defaultOption.selected = true;
+                    hospitalsDropdown.appendChild(defaultOption);
+            
+                    // Add hospitals from the selected district
+                    {% for hospital in hospitals %}
+                        if ("{{ hospital.District }}" === selectedDistrict) {
+                            var option = document.createElement('option');
+                            option.value = "{{ hospital.id }}";
+                            option.text = "{{ hospital.Hospital_Name }} - {{ hospital.City }}";
+                            hospitalsDropdown.appendChild(option);
+                        }
+                    {% endfor %}
+                    
+                    // Enable the hospital dropdown
+                    hospitalsDropdown.disabled = false;
+                });
+            </script>
+        </div>
+    </div>
+</div>
+
+</body>
+{% endblock %}
+

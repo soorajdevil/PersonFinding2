@@ -1,0 +1,174 @@
+{% extends 'header.html'%}
+{% block content %}
+
+{%load static %}
+{% comment %} <!DOCTYPE html>
+<html> {% endcomment %}
+
+<head>
+    <title>Police</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add custom styles for the background image */
+        body {
+            background-image: url('pics/Userview.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<br>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<body>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <!-- Add a card for the form with Bootstrap styling -->
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="text-center">Police Credentials</h1>
+                        <form action="" method="post" id="registrationForm"> <!-- Added id attribute to the form -->
+                            {% csrf_token %}
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td><label for="id_Station_id">Station id</label></td>
+                                        <td>{{ form1.Station_id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="id_Address_line1">Address line1</label></td>
+                                        <td>{{ form1.Address_line1 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="id_Address_line2">Address line2</label></td>
+                                        <td>{{ form1.Address_line2 }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="id_District">District</label></td>
+                                        <td>{{ form1.District }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="id_City">City</label></td>
+                                        <td>{{ form1.City }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="id_Pin">Pin</label></td>
+                                        <td>{{ form1.Pin }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="id_Contact_number">Contact number</label></td>
+                                        <td>{{ form1.Contact_number }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="id_Email">Email</label></td>
+                                        <td>{{ form1.Email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="id_Password" class="form-label">Password</label></td>
+                                        <td>
+                                            <div class="input-group">
+                                                {{ form1.Password }}
+                                                <button class="btn btn-outline-secondary" type="button" id="toggle-Password" onclick="togglePasswordVisibility()">
+                                                    <i class="fa fa-eye-slash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <!-- Add more fields here following the same structure -->
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and jQuery (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+    <script>
+        $(document).ready(function() {
+            // Get the password input element
+            var passwordInput = $('#id_Password');
+            
+            // Get the current value of the password input
+            var passwordValue = passwordInput.val();
+            
+            // Check if the current value of the password input is empty
+            if (passwordValue.trim() === '') {
+                // Set the placeholder text to the validation error message
+                passwordInput.attr('placeholder', 'Must be at least 8 characters and contain at least one digit');
+            }
+        });
+
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('id_Password');
+            const togglePassword = document.getElementById('toggle-Password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            togglePassword.querySelector('i').classList.toggle('fa-eye-slash');
+            togglePassword.querySelector('i').classList.toggle('fa-eye');
+        }
+
+        // Form submission with SweetAlert and additional validation
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            var nameInput = document.getElementById('id_Station_id');
+            var emailInput = document.getElementById('id_Email');
+            var contactNoInput = document.getElementById('id_Contact_number');
+            var passwordInput = document.getElementById('id_Password');
+
+            var isValid = true; // Assume form is valid by default
+            var errorMessage = ''; // Initialize an empty error message
+
+            // Validate contact number (must be exactly 10 digits)
+            if (!/^\d{10}$/.test(contactNoInput.value)) {
+                isValid = false;
+                errorMessage += 'Please enter a valid 10-digit contact number (digits only).\n';
+            }
+
+            // Password validation (e.g., minimum length of 8 characters)
+            if (passwordInput.value.length < 8) {
+                isValid = false;
+                errorMessage += 'Password must be at least 8 characters long.\n';
+            }
+
+            // Basic name and email validation
+            if (nameInput.value.trim() === '' || emailInput.value.trim() === '') {
+                isValid = false;
+                errorMessage += 'Station ID and Email are required.\n';
+            }
+
+            if (isValid) {
+                // Show a success dialog box using SweetAlert
+                event.preventDefault(); // Prevent the default form submission
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Submit Message',
+                    text: 'Your form has been submitted successfully.'
+                }).then(function() {
+                    // After the alert is closed, redirect to index.html
+                    window.location.href = 'http://127.0.0.1:8000/';
+                });
+            } else {
+                event.preventDefault();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: errorMessage
+                });
+            }
+        });
+    </script>
+</body>
+
+{% comment %} </html> {% endcomment %}
+{% endblock %}

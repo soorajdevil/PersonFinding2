@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<p>Accident Details</p>
+</head>
+<body>
+<form action="" method="post" enctype="multipart/form-data">
+{% comment %} <form action="" method="post"> {% endcomment %}
+    {%csrf_token %}
+    {{form1.as_p}}
+    <input type="submit"value="Register">
+</form>
+
+
+</body>
+</html>

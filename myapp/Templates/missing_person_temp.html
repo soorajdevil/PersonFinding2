@@ -1,0 +1,16 @@
+<!-- find_missing_person_template.html -->
+{% extends 'police_header.html' %}
+{% block content %}
+    <div class="container">
+        <h2 class="text-center">Details of Missing Person</h2>
+        <h4>{{ missing_person.Name }}</h4>
+        <!-- Display other details of the missing person -->
+        
+        <!-- Add a button or form to trigger the Apriori algorithm -->
+        <form action="{% url 'run_apriori_algorithm' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="missing_person_id" value="{{ missing_person.id }}">
+            <button type="submit" class="btn btn-primary">Find Matching Cases</button>
+        </form>
+    </div>
+{% endblock content %}

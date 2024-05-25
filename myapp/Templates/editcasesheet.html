@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<p>Registration</p>
+</head>
+<body>
+{% comment %} <form action="" method="post"> {% endcomment %}
+<form action="" method="post" enctype="multipart/form-data">
+    {%csrf_token %}
+    {{form1.as_p}}
+    <input type="submit"value="Register">
+</form>
+
+
+</body>
+</html>

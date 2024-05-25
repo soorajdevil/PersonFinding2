@@ -1,0 +1,49 @@
+{% extends 'header.html' %}
+{% block content %}
+
+{% load static %}
+
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center">Details of Missing People</h1>
+        <div class="card">
+            <div class="card-body">
+                <table id="enquiriesTable" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>Age</th>
+                            <th>Height</th>
+                            <th>Weight</th>
+                            <th>Missing date</th>
+                            <th>Missing place</th>
+                            <th>Other details</th>
+                            <th>Photo</th>
+                            {% comment %} <th>Status</th> {% endcomment %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for view in view %}
+                            <tr>
+                                <td>{{ view.Name }}</td>
+                                <td>{{ view.Gender }}</td>
+                                <td>{{ view.Age }}</td>
+                                <td>{{ view.Height }}</td>
+                                <td>{{ view.Weight }}</td>
+                                <td>{{ view.Missing_date }}</td>
+                                <td>{{ view.Missing_place }}</td>
+                                <td>{{ view.Other_details }}</td>
+                                <td><img src="/media/{{ view.Photo }}" width="50px" height="50px"></td>
+                                {% comment %} <td><a href="../found_missing_add/{{ view.id }}" class="btn btn-success">Found</a></td> {% endcomment %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+   
+</body>
+{% endblock %}

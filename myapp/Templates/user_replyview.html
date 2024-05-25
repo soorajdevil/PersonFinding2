@@ -1,0 +1,41 @@
+{% extends 'user_header.html'%}
+{% block content %}
+
+{%load static %}
+<br>
+<br>
+<body>
+    <div class="container table-container">
+        <h1 class="text-center">Replies Data View</h1>
+        <table id="enquiriesTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Serial Number</th>
+                    <th>User id</th>
+                    <th>Hospital id</th>
+                    <th>Hospital Name</th>
+                    <th>Enquiries Details</th>
+                    <th>Reply</th>
+                    <th>Current Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for inquiry in inquiries_with_replies %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ inquiry.user_id_id }}</td>
+                    <td>{{ inquiry.hospital.hospital_id }}</td>
+                    <td>{{ inquiry.hospital.Hospital_Name }}</td>
+                    <td>{{ inquiry.Enquiry_detail }}</td>
+                    <td>{{ inquiry.Reply }}</td>
+                    <td>{{ inquiry.Current_Date }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+            
+        </table>
+    </div>
+
+   
+</body>
+{%endblock%}

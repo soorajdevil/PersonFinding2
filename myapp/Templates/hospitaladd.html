@@ -1,0 +1,125 @@
+{% extends 'header.html'%}
+{% block content %}
+
+{%load static %}
+
+<head>
+    <title>Hospital</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% comment %} <style>
+        /* Add custom styles for the background image */
+        body {
+            background-image: url('pics/Userview.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+    </style> {% endcomment %}
+</head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<body>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-8">
+                <!-- Add a card for the form with Bootstrap styling -->
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="text-center">Hospital Credentials</h1>
+                        {% comment %} <form action="" method="post"> {% endcomment %}
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td><label for="id_Name">Hospital Name</label></td>
+                                        <td>{{ form1.Hospital_Name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="id_Address">Address</label></td>
+                                        <td>{{ form1.Address }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="id_District">District</label></td>
+                                        <td>{{ form1.District }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="id_City">City</label></td>
+                                        <td>{{ form1.City }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="id_Contact_number">Contact number</label></td>
+                                        <td>{{ form1.Contact_number }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="Email">Email</label></td>
+                                        <td>{{ form1.Email }}</td>
+                                    </tr>
+                                    
+                                    <tr>
+                                        <td><label for="id_hospital_id">Hospital id</label></td>
+                                        <td>{{ form1.hospital_id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="proof">Upload Proof</label></td>
+                                        <td>{{ form1.proof }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td><label for="id_Password" class="form-label">Password</label></td>
+                                        <td>
+                                            <div class="input-group">
+                                                {{ form1.Password }}
+                                                <button class="btn btn-outline-secondary" type="button" id="toggle-Password" onclick="togglePasswordVisibility()">
+                                                    <i class="fa fa-eye-slash"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    {% comment %} <tr>
+                                        <td><label for="proof">Proof</label></td>
+                                        <td>{{ form1.proof }}</td>
+                                    </tr> {% endcomment %}
+                                    <!-- Add more fields here following the same structure -->
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and jQuery (optional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Get the password input element
+            var passwordInput = $('#id_Password');
+            
+            // Get the current value of the password input
+            var passwordValue = passwordInput.val();
+            
+            // Check if the current value of the password input is empty
+            if (passwordValue.trim() === '') {
+                // Set the placeholder text to the validation error message
+                passwordInput.attr('placeholder', 'Must be at least 8 characters and contain at least one digit');
+            }
+        });
+        </script>
+        <script>
+            function togglePasswordVisibility() {
+                const passwordInput = document.getElementById('id_Password');
+                const togglePassword = document.getElementById('toggle-Password');
+                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordInput.setAttribute('type', type);
+                togglePassword.querySelector('i').classList.toggle('fa-eye-slash');
+                togglePassword.querySelector('i').classList.toggle('fa-eye');
+            }
+        </script>
+</body>
+{% endblock %}

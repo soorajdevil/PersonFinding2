@@ -1,0 +1,68 @@
+{% extends 'hospital_header.html' %}
+{% block content %}
+
+{% load static %}
+<head>
+    <title>Replies Data View</title>
+    <!-- Include Bootstrap CSS (adjust the URL to the Bootstrap version you are using) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Include DataTables CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <!-- Include DataTables JS -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+
+    <!-- Your existing style and script -->
+    <!-- ... -->
+</head>
+<body>
+    <div class="container table-container">
+        <h1 class="text-center">Replies Data View</h1>
+        <table id="enquiriesTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Serial Number</th>
+                    <th>Public id</th>
+                    <th>Hospital id</th>
+                    <th>Name</th>
+                    <th>Phone number</th>
+                    {% comment %} <th>Hospital Name</th> {% endcomment %}
+                    <th>Enquiries Details</th>
+                    <th>Reply</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for view in view %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ view.enquiry_id }}</td>
+                    <td>{{ view.hospital}}</td>
+                    <td>{{ view.Name }}</td>
+                    <td>{{ view.Phone }}</td>
+                    {% comment %} <td>{{ view.hospital.Hospital_Name }}</td> {% endcomment %}
+                    <td>{{ view.Enquiry }}</td>
+                    <td><a href="../reply_add_public/{{ view.enquiry_id }}" class="btn btn-success">Reply</a></td>
+                    
+                </tr>
+            {% endfor %}
+            </tbody>
+            
+        </table>
+    </div>
+
+    <!-- Include Bootstrap JS (optional, only if you need Bootstrap JavaScript functionality) -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Initialize DataTables -->
+    <script>
+        $(document).ready(function() {
+            $('#enquiriesTable').DataTable();
+        });
+    </script>
+</body>
+{%endblock%}
